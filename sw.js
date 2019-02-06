@@ -8,16 +8,17 @@ if (workbox) {
 
 workbox.precaching.precacheAndRoute([
     'index.html',
-    'app/main.js',
-    'assets/style.css',
     'assets/imgs/island-one.jpg'
 ])
 
-// workbox.routing.registerRoute(
-//     new RegExp('.*\.js'),
-//     workbox.strategies.networkFirst()
-//   );
+workbox.routing.registerRoute(
+    new RegExp('.*\.js'),
+    workbox.strategies.networkFirst()
+  );
 
-//   workbox.routing.registerRoute(/.*\.css/, workbox.strategies.staleWhileRevalidate({
-//       name: 'css-cache'
-//   }))
+  workbox.routing.registerRoute(/.*\.css/, workbox.strategies.staleWhileRevalidate({
+      name: 'css-cache'
+  }))
+  workbox.routing.registerRoute(/.*\.js/, workbox.strategies.staleWhileRevalidate({
+      name: 'js-cache'
+  }))
