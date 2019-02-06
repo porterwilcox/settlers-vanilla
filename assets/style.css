@@ -16,3 +16,7 @@
 canvas {
     position: absolute;
 }
+.native-download {
+    display: none;
+    cursor: pointer;
+}

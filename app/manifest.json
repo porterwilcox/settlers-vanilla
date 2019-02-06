@@ -1,0 +1,20 @@
+{
+    "short_name": "Settlers",
+    "name": "Settlers Dice",
+    "icons": [
+      {
+        "src": "../assets/imgs/sheep-192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "../assets/imgs/sheep-512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#3367D6",
+    "display": "standalone",
+    "theme_color": "#ffc107"
+  }
