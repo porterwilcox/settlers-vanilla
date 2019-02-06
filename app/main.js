@@ -100,6 +100,7 @@ function updateScore(i) {
 //canvas scripts
 let canvas = document.getElementById('my-canvas') //get canvas
 let ctx = canvas.getContext('2d') //declare 2d canvas type
+let canvasHistory = []
 
 //set both touch and mouse event listeners for multidevice functionality
 canvas.addEventListener('touchstart', setPosition)
@@ -134,6 +135,7 @@ function setPosition(e, isEnd) {
 
 //draw the users desired line between the two points
 function draw() {  
+    canvasHistory.push(canvas.toDataURL())
     ctx.beginPath();
     ctx.strokeStyle = 'red';
     ctx.moveTo(s.x, s.y);
@@ -142,6 +144,19 @@ function draw() {
     ctx.closePath()
     ctx.stroke();
   }
+
+//canvas controls
+function resetCanvas() {
+    canvasHistory = []
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+}
+function undo() {
+    if (!canvasHistory.length) return
+    let canvasImg = new Image(canvas.width, canvas.height)
+    canvasImg.src = canvasHistory.pop()
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    canvasImg.onload = () => {ctx.drawImage(canvasImg, 0, 0)}
+}
 
 //pwa
 let deferredPrompt;
