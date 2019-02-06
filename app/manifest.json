@@ -13,7 +13,7 @@
         "sizes": "512x512"
       }
     ],
-    "start_url": "/settlers-vanilla",
+    "start_url": "/settlers-vanilla/index.html",
     "background_color": "#3367D6",
     "display": "standalone",
     "theme_color": "#ffc107"
