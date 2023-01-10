@@ -168,6 +168,7 @@ function resetGame() {
     if (!confirm('Are you sure you want to reset the game?', 'Reset Game'))
         return;
 
+    count = 0;
     clearCanvas(false);
     setDefaultScores();
     drawScores();
