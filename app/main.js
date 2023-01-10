@@ -1,4 +1,8 @@
-let scores = ['-', '-','-','-','-','-','-','-','-','-','-','-','-','-','-'] //default to new game
+let scores;  //default to new game
+setDefaultScores = () => {
+    scores = ['-', '-','-','-','-','-','-','-','-','-','-','-','-','-','-']
+}
+setDefaultScores();
 
 let count = 0 //keeps track of what turn you're on
 
@@ -145,8 +149,11 @@ function draw() {
     ctx.stroke();
   }
 
-//canvas controls
-function resetCanvas() {
+//canvas controls and reset game
+function clearCanvas(showPrompt = true) {
+    if (showPrompt && !confirm('Are you sure you want to clear the canvas?', 'Clear Canvas'))
+        return;
+
     canvasHistory = []
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 }
@@ -156,6 +163,14 @@ function undo() {
     canvasImg.src = canvasHistory.pop()
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     canvasImg.onload = () => {ctx.drawImage(canvasImg, 0, 0)}
+}
+function resetGame() {
+    if (!confirm('Are you sure you want to reset the game?', 'Reset Game'))
+        return;
+
+    clearCanvas(false);
+    setDefaultScores();
+    drawScores();
 }
 
 //pwa
@@ -186,3 +201,28 @@ nativeDownloadBtn.addEventListener('click', (e) => {
         deferredPrompt = null;
       });
   });
+
+//dice
+function unlockDice() {
+    document.querySelectorAll('.dice').forEach(dice => dice.classList.remove('locked'))
+}
+function toggleDieLock({ target: die }) {
+    die.classList.toggle('locked')
+}
+function shake(die) {
+    die.classList.add('fa-beat');
+    setTimeout(() => die.classList.remove('fa-beat'), 500);
+}
+function rollDice() {
+    document.querySelectorAll('.dice:not(.locked)').forEach(die => {
+        die.innerHTML = Math.ceil(Math.random() * 6);
+        die.style.opacity = 1;
+        die.style.pointerEvents = 'all';
+        shake(die);
+    });
+}
+(() => {
+    document.querySelectorAll('.dice').forEach(die => {
+        die.addEventListener('click', toggleDieLock)
+    });
+})();
